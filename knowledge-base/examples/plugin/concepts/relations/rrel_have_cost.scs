@@ -1,0 +1,11 @@
+rrel_have_cost
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [стоить']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_plugin;
+=> nrel_second_domain:
+    concept_price;;

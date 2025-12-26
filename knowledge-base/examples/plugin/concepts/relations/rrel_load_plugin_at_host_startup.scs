@@ -1,0 +1,11 @@
+rrel_load_plugin_at_host_startup
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [подгружать плагин при запуске хоста']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_host;
+=> nrel_second_domain:
+    concept_plugin;;

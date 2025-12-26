@@ -1,0 +1,9 @@
+concept_extension_store
+<- sc_node_class;
+=> nrel_main_idtf:
+    [магазин расширений]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    concept_store;;

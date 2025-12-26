@@ -1,0 +1,29 @@
+ui_menu_for_searching_paid_plugins
+<- ui_user_command_class_atom;
+<- ui_user_command_class_view_kb;
+=> nrel_main_idtf:
+	[Найти платные плагины заданного пользователя]
+	(*
+		<- lang_ru;;
+	*);
+	[Search paid plugins used by specified user]
+	(*
+		<- lang_en;;
+	*);
+=> ui_nrel_command_template:
+	[*
+		action_search_paid_plugins _-> .._action
+		(*
+			_-> rrel_1:: ui_arg_1;;
+		*);;
+		.._action <-_ action;;
+	*];
+=> ui_nrel_command_lang_template:
+	[Найти платные плагины $ui_arg_1]
+	(*
+		<- lang_ru;;
+	*);
+	[Search paid plugins used by $ui_arg_1 ]
+	(*
+		<- lang_en;;
+	*);;

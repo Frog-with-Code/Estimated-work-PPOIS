@@ -1,0 +1,11 @@
+rrel_can_download
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [можно скачать']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_extension_store;
+=> nrel_second_domain:
+    concept_plugin;;

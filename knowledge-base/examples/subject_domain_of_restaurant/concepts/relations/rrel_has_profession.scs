@@ -1,0 +1,11 @@
+rrel_has_profession
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [иметь профессию']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_human;
+=> nrel_second_domain:
+    concept_employee;;

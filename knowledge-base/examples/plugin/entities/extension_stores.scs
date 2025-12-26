@@ -1,0 +1,31 @@
+ChromeWebStore
+<- concept_extension_store;
+=> nrel_main_idtf:
+    [Хром Веб Стор]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_can_download:
+    AdBlock;;
+
+MozillaAddons
+<- concept_extension_store;
+=> nrel_main_idtf:
+    [Мозила адонс]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_can_download:
+    Repeek;
+    TunnelBear;;
+
+Operaaddons
+<- concept_extension_store;
+=> nrel_main_idtf:
+    [Опера адонс]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_can_download:
+    Repeek;
+    AdBlock;;

@@ -1,0 +1,7 @@
+concept_shift_assignment
+<- sc_node_class;
+=> nrel_main_idtf:
+    [назначение на смену]
+    (*
+        <- lang_ru;;
+    *);;

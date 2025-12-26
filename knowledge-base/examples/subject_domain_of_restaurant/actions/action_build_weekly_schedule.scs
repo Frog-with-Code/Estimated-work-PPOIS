@@ -1,0 +1,9 @@
+action_build_weekly_schedule
+<- sc_node_class;
+=> nrel_main_idtf:
+    [действие. построение недельного графика]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    information_action;;

@@ -1,0 +1,43 @@
+UserArtem
+<- concept_user;
+=> nrel_main_idtf:
+    [Артём]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_open_store:
+    ChromeWebStore;
+-> rrel_start_app:
+    GoogleChrome;
+-> rrel_use_plugin:
+    Repeek;
+    TunnelBear;
+    AdBlock;;
+
+UserSasha
+<- concept_user;
+=> nrel_main_idtf:
+    [Саша]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_open_store:
+    MozillaAddons;
+-> rrel_start_app:
+    Firefox;
+-> rrel_use_plugin:
+    AdBlock;;
+    
+UserNastya
+<- concept_user;
+=> nrel_main_idtf:
+    [Настя]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_open_store:
+    Operaaddons;
+-> rrel_start_app:
+    Opera;
+-> rrel_use_plugin:
+    TunnelBear;;

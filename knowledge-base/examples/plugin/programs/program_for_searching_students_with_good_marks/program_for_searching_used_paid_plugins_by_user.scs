@@ -1,0 +1,338 @@
+program_for_searching_paid_plugins_used_by_user
+=> nrel_main_idtf:
+	[Программа поиска платных плагинов используемые определенным пользователем]
+    (*
+        <- lang_ru;;
+    *);
+	[Program for searching paid plugins used by specified user]
+    (*
+        <- lang_en;;
+    *);
+<- scp_program;
+-> rrel_key_sc_element:
+    .._process;;
+
+program_for_searching_paid_plugins_used_by_user = [*
+.._process
+<-_ scp_process;
+
+_-> rrel_1:: rrel_in:: .._user; 
+_-> rrel_2:: rrel_out:: .._result_plugins; 
+
+<=_ nrel_decomposition_of_action:: _...
+(*
+
+	_-> rrel_1:: .._generate_result_set_of_free_plugins
+	(*
+		<-_ genElStr3;;
+
+		_-> rrel_1:: rrel_assign:: rrel_scp_var:: rrel_const:: rrel_node:: rrel_structure:: .._result_plugins;;
+		_-> rrel_2:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_from_result_plugins_to_class;;
+		_-> rrel_3:: rrel_fixed:: rrel_scp_const:: concept_plugin;;
+
+		_=> nrel_goto:: .._check_user;;
+	*);;
+
+	// ШАГ 2: ПРОВЕРКА ВХОДНОГО АРГУМЕНТА
+	// Проверить, что входной аргумент действительно является экземпляром класса университетов.
+	_-> .._check_user
+	(*
+		<-_ searchElStr3;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: concept_user;;
+		_-> rrel_2:: rrel_assign:: rrel_const_perm_pos_arc:: rrel_scp_var:: .._arc_from_class_to_user;;
+		_-> rrel_3:: rrel_fixed:: rrel_scp_const:: .._user;;
+
+		_=> nrel_then:: .._print_that_specified_argument_is_user;;
+
+		_=> nrel_else:: .._print_that_specified_argument_is_not_user;;
+	*);;
+
+	// Напечатать в терминал, что входной аргумент является университетом.
+	_-> .._print_that_specified_argument_is_user
+	(*
+		<-_ printNl;;		
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [Specified argument is user];;
+
+		// Перейти к поиску всех групп в университете.
+		_=> nrel_goto:: .._search_using_apps;;
+	*);;
+
+	// ШАГ 3: ПОИСК ВСЕХ ГРУПП В УНИВЕРСИТЕТЕ
+	// Найти все группы, принадлежащие университету, сформировать множество из них и записать в .._found_groups.
+	_-> .._search_using_apps
+	(*
+		<-_ searchSetStr5;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: .._user;;
+		_-> rrel_2:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_from_user_to_app;;
+		_-> rrel_3:: rrel_assign:: rrel_scp_var:: rrel_const:: rrel_node:: .._app;;
+		_-> rrel_4:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_to_arc_from_user_to_app;;
+		_-> rrel_5:: rrel_fixed:: rrel_scp_const:: rrel_start_app;;
+	
+		_-> rrel_set_3:: rrel_assign:: rrel_scp_var:: .._found_apps;;
+
+		// Если группы найдены, то перейти к выбору группы.
+		_=> nrel_then:: .._get_next_app;;
+		// Если группы не найдены, то перейти к печати в терминал, что все группы были пройдены.
+		_=> nrel_else:: .._print_that_all_apps_were_iterated;;
+	*);;
+
+	// ШАГ 4: ВЫБРАТЬ ГРУППУ ИЗ МНОЖЕСТВА НАЙДЕННЫХ ГРУПП
+	// Найти любую группу во множестве найденных групп, являющегося значением переменной .._found_groups.
+	_-> .._get_next_app
+	(*
+		<-_ searchElStr3;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: .._found_apps;;
+		_-> rrel_2:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_from_app_set_to_app;;
+		_-> rrel_3:: rrel_assign:: rrel_scp_var:: .._app;;
+
+		// Если группы еще остались, то перейти к удалению выбранной группы из множества.
+		_=> nrel_then:: .._pop_app_from_set;;
+		// Если все группы были пройдены, то перейти к печати в терминал, что все группы были пройдены.
+		_=> nrel_else:: .._print_that_all_apps_were_iterated;;
+	*);;
+
+	// ШАГ 5: УДАЛИТЬ ВЫБРАННУЮ ГРУППУ ИЗ МНОЖЕСТВА НАЙДЕННЫХ ГРУПП
+	// Удалить sc-дугу между множеством в .._found_groups и выбранной группой.
+	_-> .._pop_app_from_set
+	(*
+		<-_ eraseEl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: rrel_erase:: .._arc_from_app_set_to_app;;
+
+		// Перейти к печати в терминал, что группа успешно извлечена из множества.
+		_=> nrel_goto:: .._print_that_users_app_was_found;;
+	*);;
+
+	// Напечатать в терминал, что группа успешно извлечена из множества.
+	_-> .._print_that_users_app_was_found
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [App was found in specified users using apps];;
+
+		// Перейти к поиску всех студентов в выбранной группе.
+		_=> nrel_goto:: .._search_apps_plugins;;
+	*);;
+
+	// ШАГ 6: ПОИСК ВСЕХ СТУДЕНТОВ В ТЕКУЩЕЙ ГРУППЕ
+	// Найти всех студентов, обучающихся в текущей группе, сформировать множество из них и записать в .._found_students.
+	_-> .._search_apps_plugins
+	(*
+		<-_ searchSetStr5;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: .._app;;
+		_-> rrel_2:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_from_app_to_plugin;;
+		_-> rrel_3:: rrel_assign:: rrel_scp_var:: rrel_const:: rrel_node:: .._plugin;;
+		_-> rrel_4:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_to_arc_from_app_to_plugin;;
+		_-> rrel_5:: rrel_fixed:: rrel_scp_const:: rrel_start_plugin;;
+	
+		_-> rrel_set_3:: rrel_assign:: rrel_scp_var:: .._found_plugins;;
+
+		// Если студенты найдены, то перейти к выбору студента.
+		_=> nrel_then:: .._get_next_plugin;;
+		// Если студенты не найдены, то перейти к выбору следующей группы.
+		_=> nrel_else:: .._get_next_app;;
+	*);;
+
+	// ШАГ 7: ВЫБРАТЬ СТУДЕНТА ИЗ МНОЖЕСТВА НАЙДЕННЫХ СТУДЕНТОВ
+	// Найти любого студента во множестве найденных студентом, являющегося значением переменной .._found_students.
+	_-> .._get_next_plugin
+	(*
+		<-_ searchElStr3;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: .._found_plugins;;
+		_-> rrel_2:: rrel_assign:: rrel_const_perm_pos_arc:: rrel_scp_var:: .._arc_from_plugin_set_to_plugin;;
+		_-> rrel_3:: rrel_assign:: rrel_scp_var:: .._plugin;;
+		
+		// Если студенты еще остались, то перейти к удалению выбранного студента из множества.
+		_=> nrel_then:: .._pop_plugin_from_set;;
+		// Если все студенты были пройдены, то перейти к печати в терминал, что все студенты были пройдены.
+		_=> nrel_else:: .._print_that_all_plugins_were_iterated;;
+	*);;
+
+	// ШАГ 8: УДАЛИТЬ ВЫБРАННОГО СТУДЕНТА ИЗ МНОЖЕСТВА НАЙДЕННЫХ СТУДЕНТОВ
+	// Удалить sc-дугу между множеством в .._found_students и выбранным студентов.
+	_-> .._pop_plugin_from_set
+	(*
+		<-_ eraseEl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: rrel_erase:: .._arc_from_plugin_set_to_plugin;;
+
+		// Перейти к печати в терминал, что студент успешно извлечен из множества.
+		_=> nrel_goto:: .._print_that_plugin_was_found;;
+	*);;
+
+	// Напечатать в терминал, что студент успешно извлечен из множества.
+	_-> .._print_that_plugin_was_found
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [Plugin was found in specified app startup];;
+
+		// Перейти к поиску средней оценки студента.
+		_=> nrel_goto:: .._search_plugin_cost;;
+	*);;
+
+	// ШАГ 9: ПОЛУЧИТЬ СРЕДНЮЮ ОЦЕНКУ СТУДЕНТА
+	// Найти связку отношения nrel_average_mark для текущего студента.
+	_-> .._search_plugin_cost
+	(*
+		<-_ searchElStr5;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: .._plugin;;
+		_-> rrel_2:: rrel_assign:: rrel_scp_var:: rrel_const:: rrel_common_arc:: .._arc_from_plugin_to_cost;;
+		_-> rrel_3:: rrel_assign:: rrel_scp_var:: rrel_const:: rrel_node:: rrel_node_link:: .._cost;;
+		_-> rrel_4:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_to_arc_from_plugin_to_cost;;
+		_-> rrel_5:: rrel_fixed:: rrel_scp_const:: nrel_cost;;
+
+		// Если средняя оценка найдена, то перейти к печати в терминал, что средняя оценка найдена.
+		_=> nrel_then:: .._print_that_cost_is_found;;
+		// Если средняя оценка не найдена, то перейти к печати в терминал, что средняя оценка не найдена.
+		_=> nrel_else:: .._print_that_cost_is_not_found;;
+	*);;
+
+	// Напечатать в терминал, что средняя оценка найдена.
+	_-> .._print_that_cost_is_found
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [Cost is found for specified plugin];;
+
+		// Перейти к проверке порога средней оценки.
+		_=> nrel_goto:: .._check_plugin_cost;;
+	*);;
+
+	// ШАГ 10: ПРОВЕРКА ПОРОГА СРЕДНЕЙ ОЦЕНКИ
+	// Проверить, что средняя оценка студента >= 8.0 (порог для "хороших оценок").
+	_-> .._check_plugin_cost
+	(*
+		<-_ ifGr;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: .._cost;;
+		_-> rrel_2:: rrel_fixed:: rrel_scp_const:: [0];;
+
+		// Перейти к проверке принадлежности студента к классу concept_student.
+		_=> nrel_then:: .._check_plugin_class;;
+		// Перейти к выбору следующего студента.
+		_=> nrel_else:: .._get_next_plugin;;
+	*);;
+
+	// ШАГ 11: ПРОВЕРКА ПРИНАДЛЕЖНОСТИ К КЛАССУ СТУДЕНТОВ
+	// Проверить, что студент принадлежит классу concept_student.
+	// Если студент принадлежит классу concept_student, то добавить sc-дугу базового вида между ними
+	// в результирующее множество.
+	_-> .._check_plugin_class
+	(*
+		<-_ searchSetStr3;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: concept_plugin;;
+		_-> rrel_2:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_from_class_to_plugin;;
+		_-> rrel_3:: rrel_fixed:: rrel_scp_var:: .._plugin;;
+
+		_-> rrel_set_2:: rrel_fixed:: rrel_scp_var:: .._result_plugins;;
+
+		// Перейти к добавлению студента в результирующее множество.
+		_=> nrel_goto:: .._add_plugin_to_result_plugins_set;;
+	*);;
+
+	// ШАГ 12: ДОБАВИТЬ СТУДЕНТА В РЕЗУЛЬТИРУЮЩЕЕ МНОЖЕСТВО
+	// Создать sc-дугу базового вида от структуры в .._result_students к текущему студенту.
+	_-> .._add_plugin_to_result_plugins_set
+	(*
+		<-_ genElStr3;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: .._result_plugins;;
+		_-> rrel_2:: rrel_assign:: rrel_scp_var:: rrel_const_perm_pos_arc:: .._arc_from_result_plugins_set_to_plugin;;
+		_-> rrel_3:: rrel_fixed:: rrel_scp_var:: .._plugin;;
+
+		// Перейти к печати в терминал, что студент успешно добавлен в результат.
+		_=> nrel_goto:: .._print_that_plugin_was_added_to_result_plugins_set;;
+	*);;
+
+	// Напечатать в терминал, что студент успешно добавлен в результат.
+	_-> .._print_that_plugin_was_added_to_result_plugins_set
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [Plugin was added to result plugins set];;
+
+		// Перейти к выбору следующего студента.
+		_=> nrel_goto:: .._get_next_plugin;;
+	*);;
+
+	// Напечатать в терминал, что средняя оценка не найдена.
+	_-> .._print_that_cost_is_not_found
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [Cost is not found for specified plugin];;
+
+		// Перейти к выбору следующего студента.
+		_=> nrel_goto:: .._get_next_plugin;;
+	*);;
+
+	// Напечатать в терминал, что все студенты в группе были обработаны.
+	_-> .._print_that_all_plugins_were_iterated
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [All plugins were iterated in specified app startup];;
+
+		// Перейти к удалению временного множества студентов.
+		_=> nrel_goto:: .._erase_found_plugins_set;;
+	*);;
+
+	// Удалить временное множество студентов.
+	_-> .._erase_found_plugins_set
+	(*
+		<-_ eraseEl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: rrel_erase:: .._found_plugins;;
+
+		// Перейти к выбору следующей группы.
+		_=> nrel_goto:: .._get_next_app;;
+	*);;
+
+	// Напечатать в терминал, что все группы в университете были обработаны.
+	_-> .._print_that_all_apps_were_iterated
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [All app were iterated for specified user];;
+
+		// Перейти к удалению временного множества групп.
+		_=> nrel_goto:: .._erase_found_apps_set;;
+	*);;
+
+	// Удалить временное множество групп.
+	_-> .._erase_found_apps_set
+	(*
+		<-_ eraseEl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_var:: rrel_erase:: .._found_apps;;
+
+		// Перейти к завершению программы.
+		_=> nrel_goto:: .._return_result;;
+	*);;
+
+	// Напечатать в терминал, что указанный аргумент не является университетом.
+	_-> .._print_that_specified_argument_is_not_user
+	(*
+		<-_ printNl;;
+
+		_-> rrel_1:: rrel_fixed:: rrel_scp_const:: [Specified argument is not user];;
+
+		// Перейти к завершению программы.
+		_=> nrel_goto:: .._return_result;;
+	*);;
+
+	// Завершить программу.
+	_-> .._return_result
+	(*
+		<-_ return;;
+	*);;
+*);;
+*];;

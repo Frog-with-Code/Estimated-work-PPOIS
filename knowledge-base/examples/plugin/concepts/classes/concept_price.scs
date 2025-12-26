@@ -1,0 +1,9 @@
+concept_price
+<- sc_node_class;
+=> nrel_main_idtf:
+    [цена]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    concept_money;;

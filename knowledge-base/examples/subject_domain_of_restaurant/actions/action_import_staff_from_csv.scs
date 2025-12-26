@@ -1,0 +1,9 @@
+action_import_staff_from_csv
+<- sc_node_class;
+=> nrel_main_idtf:
+    [действие. импорт работников через csv файл]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    information_action;;

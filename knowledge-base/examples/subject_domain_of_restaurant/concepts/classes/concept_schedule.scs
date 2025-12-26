@@ -1,0 +1,7 @@
+concept_schedule
+<- sc_node_class;
+=> nrel_main_idtf:
+    [расписание]
+    (*
+        <- lang_ru;;
+    *);;

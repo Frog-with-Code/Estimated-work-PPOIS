@@ -1,0 +1,41 @@
+AdBlock
+<- concept_plugin;
+=> nrel_main_idtf:
+    [Адблок]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_have_cost:
+    ninety;
+-> rrel_downloaded_from:
+    ChromeWebStore;
+=> nrel_cost:
+    [190];;
+
+Repeek
+<- concept_plugin;
+=> nrel_main_idtf:
+    [Репик]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_have_cost:
+    zero;
+-> rrel_downloaded_from:
+    MozillaAddons;
+=> nrel_cost:
+    [30];;
+
+TunnelBear
+<- concept_plugin;
+=> nrel_main_idtf:
+    [Таннел Беар]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_have_cost:
+    zero;
+-> rrel_downloaded_from:
+    MozillaAddons;
+=> nrel_cost:
+    [-1];;

@@ -1,0 +1,7 @@
+nrel_right_part
+<- sc_node_non_role_relation;
+=> nrel_main_idtf:
+    [правая доля*]
+    (*
+        <- lang_ru;;
+    *);;

@@ -1,0 +1,38 @@
+@search_main_extension_store_for_users_browser = {
+    rrel_init_template: {
+        rrel_template: [*
+            @input_param1 = (.._user <-_ concept_user);;
+            rrel_start_app _-> (.._user _-> .._host);;
+            @output_param1 = (.._host <-_ concept_host);;
+        *];
+        rrel_template_input_params: {
+            @input_param1
+        };
+        rrel_template_output_params: {
+            @output_param1
+        }
+    } (* <- nrel_search_set_template;; *);
+    rrel_next_template: {
+        rrel_init_template: {
+            rrel_template: [*
+                @input_param1 = (.._host <-_ concept_host);;
+                rrel_is_main_extension_store _-> (.._host _-> .._extension_store);;
+                @output_param1 = (.._extension_store <-_ concept_extension_store);;
+            *];
+            rrel_template_input_params: {
+                @input_param1
+            };
+            rrel_template_output_params: {
+                @output_param1
+            }
+        } (* <- nrel_search_template;; *)
+    } (* <- nrel_fixed_search_strategy_template;; *)
+};;
+
+@search_main_extension_store_for_users_browser
+<- nrel_fixed_search_strategy_template;
+=> nrel_main_idtf:
+    [Шаблон поиска основного магазина расширений для используемого браузера]
+    (*
+        <- lang_ru;;
+    *);;

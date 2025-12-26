@@ -1,0 +1,11 @@
+rrel_is_main_extension_store
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [являться основным магазином разрешений']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_host;
+=> nrel_second_domain:
+    concept_extension_store;;

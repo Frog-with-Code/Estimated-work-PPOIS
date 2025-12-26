@@ -1,0 +1,11 @@
+rrel_downloaded_from
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [является источником загрузки']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_plugin;
+=> nrel_second_domain:
+    concept_extension_store;;

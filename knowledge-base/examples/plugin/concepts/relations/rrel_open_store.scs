@@ -1,0 +1,11 @@
+rrel_open_store
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [открыть магазин']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_user;
+=> nrel_second_domain:
+    concept_extension_store;;

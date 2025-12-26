@@ -1,0 +1,9 @@
+concept_weekday
+<- sc_node_class;
+=> nrel_main_idtf:
+    [день недели]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    concept_day;;

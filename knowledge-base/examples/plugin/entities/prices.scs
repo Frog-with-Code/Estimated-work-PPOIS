@@ -1,0 +1,17 @@
+ninety
+<- concept_price;
+=> nrel_main_idtf:
+    [90]
+    (* 
+    <- lang_ru;; 
+    *);;
+    
+zero
+<- concept_price;
+=> nrel_main_idtf:
+    [0]
+    (* 
+    <- lang_ru;; 
+    *);;
+
+

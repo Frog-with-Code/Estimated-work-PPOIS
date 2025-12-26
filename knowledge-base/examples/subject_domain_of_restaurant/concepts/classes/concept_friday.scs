@@ -1,0 +1,9 @@
+concept_friday
+<- sc_node_class;
+=> nrel_main_idtf:
+    [пятница]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    concept_weekday;;

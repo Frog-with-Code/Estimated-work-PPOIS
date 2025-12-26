@@ -1,0 +1,9 @@
+concept_admin
+<- sc_node_class;
+=> nrel_main_idtf:
+    [администратор]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    concept_employee;;

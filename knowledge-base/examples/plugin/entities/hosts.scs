@@ -1,0 +1,39 @@
+GoogleChrome
+<- concept_host;
+=> nrel_main_idtf:
+    [Гугл Хром]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_load_plugin_at_host_startup:
+    Repeek;
+-> rrel_is_main_extension_store:
+    ChromeWebStore;
+-> rrel_start_plugin:
+    Repeek;
+    TunnelBear;
+    AdBlock;;
+
+Firefox
+<- concept_host;
+=> rrel_main_idtf:
+    [Файрфокс]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_load_plugin_at_host_startup:
+     AdBlock;
+-> rrel_is_main_extension_store:
+    MozillaAddons;;
+
+Opera
+<- concept_host;
+=> rrel_main_idtf:
+    [Опера]
+    (* 
+    <- lang_ru;; 
+    *);
+-> rrel_load_plugin_at_host_startup:
+    TunnelBear;
+-> rrel_is_main_extension_store:
+    Operaaddons;;

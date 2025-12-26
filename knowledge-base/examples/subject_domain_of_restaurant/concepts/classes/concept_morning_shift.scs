@@ -1,0 +1,9 @@
+concept_morning_shift
+<- sc_node_class;
+=> nrel_main_idtf:
+    [утренняя смена]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    concept_shift;;

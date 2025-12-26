@@ -1,0 +1,11 @@
+rrel_shift_type
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [тип смены']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_work_time;
+=> nrel_second_domain:
+    concept_shift;;

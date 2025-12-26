@@ -1,0 +1,38 @@
+@search_loading_plugin_template = {
+    rrel_init_template: {
+        rrel_template: [*
+            @input_param1 = (.._user <-_ concept_user);;
+            rrel_start_app _-> (.._user _-> .._host);;
+            @output_param1 = (.._host <-_ concept_host);;
+        *];
+        rrel_template_input_params: {
+            @input_param1
+        };
+        rrel_template_output_params: {
+            @output_param1
+        }
+    } (* <- nrel_search_set_template;; *);
+    rrel_next_template: {
+        rrel_init_template: {
+            rrel_template: [*
+                @input_param1 = (.._host <-_ concept_host);;
+                rrel_load_plugin_at_host_startup _-> (.._host _-> .._plugin);;
+                @output_param1 = (.._plugin <-_ concept_plugin);;
+            *];
+            rrel_template_input_params: {
+                @input_param1
+            };
+            rrel_template_output_params: {
+                @output_param1
+            }
+        } (* <- nrel_search_template;; *)
+    } (* <- nrel_fixed_search_strategy_template;; *)
+};;
+
+@search_loading_plugin_template
+<- nrel_fixed_search_strategy_template;
+=> nrel_main_idtf:
+    [Шаблон поиска плагинов, которые загружаются при запуске хоста]
+    (*
+        <- lang_ru;;
+    *);;

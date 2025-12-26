@@ -1,0 +1,49 @@
+sc_agent_for_searching_paid_plugins
+=> nrel_main_idtf:
+	[sc-агент поиска платных плагинов]
+    (*
+        <- lang_ru;;
+    *);
+	[sc-agent for searching paid plugins used by specified user]
+    (* 
+        <- lang_en;;
+    *);
+<- abstract_sc_agent;
+=> nrel_primary_initiation_condition: 
+	(sc_event_after_generate_outgoing_arc => action_initiated);
+=> nrel_initiation_condition_and_result: 
+	(..sc_agent_for_searching_paid_plugins_condition => ..sc_agent_for_searching_paid_plugins_result);
+=> nrel_sc_agent_action_class:
+	action_search_paid_plugins;
+<= nrel_sc_agent_key_sc_elements: 
+{
+	action_initiated;
+	action_search_paid_plugins
+};
+=> nrel_inclusion: 
+	.platform_independent_implementation_of_sc_agent_for_searching_paid_plugins
+	(*
+		<- platform_independent_abstract_sc_agent;;
+		<= nrel_sc_agent_program: 
+		{
+			agent_program_for_searching_paid_plugins;
+			program_for_searching_paid_plugins_used_by_user
+		};;
+
+		-> scp_agent_for_searching_paid_plugins
+		(*
+			<- active_sc_agent;;
+		*);;  
+	*);;
+
+..sc_agent_for_searching_paid_plugins_condition
+= [*
+	action_search_paid_plugins _-> .._action;;
+	action_initiated _-> .._action;;
+	.._action _-> rrel_1:: .._user;;
+*];;
+
+..sc_agent_for_searching_paid_plugins_result
+= [*
+	concept_plugin _-> .._plugin;;
+*];;
